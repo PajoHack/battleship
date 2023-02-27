@@ -62,7 +62,32 @@ def display(board):
     print("  +" + "--" * GAME_AREA + "+")
 
 # Function that checks whether or not guesses are hit or miss.
-def target_eliminated(area, row, col):
+def eliminate_target(area, row, col):
     if area[row][col] == 'S':
         area[ro][col] == 'O'
         print("Direct Hit!\n")
+        return True 
+    else:
+        area[row][col] = 'X'
+        print("Missed!")
+        return False
+
+# Game loop
+while True:
+    print(f"{user_name}, take your shot.\n")
+    display_board(user_board)
+    guess_is_good = False 
+    while not guess_is_good:
+        try:
+            pick_row = int(input("Choose row: "))
+            pick_col = int(input("Choose column: "))
+            if pick_row < GAME_AREA and pick_col < GAME_AREA:
+                if user_board[pick_row][pick_col] == 'X' or user_board[pick_row][pick_col] == 'O':
+                    print("You've picked that location already. Try another!")
+                else:
+                    guess_is_good = True 
+                    eliminate_target(pc_board, pick_row, pick_col)
+            else:
+                print(f"Location is invalid. Please choose row & column values between 0 - 4")
+        except ValueError:
+            print("Invalid input. Please pick one of 0,1,2,3,4")
