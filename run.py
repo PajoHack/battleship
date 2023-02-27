@@ -11,7 +11,8 @@ user_name = input("Please enter your name: ")
 # outside of the board is selected or if anything other than
 # an int between 0 - 4 is inputted. User is also informed if they have already selected
 # this location on the board.
-print((f"{user_name}, Welcome to Battleship. Place your ships on the board to start!"))
+print((f"{user_name}, Welcome to Battleship!"))
+print("The board is 5 x 5. please enter 0 - 4 for your selections.\n")
 for i in range(3):
     permitted_location = False
     while not permitted_location:
@@ -29,6 +30,7 @@ for i in range(3):
                 print(f"Location is not part of the game area. Choose between 0 and 4.")
         except ValueError:
             print("Input is not valid. Please enter a whole number.")
+
 
 # PC's ships are created and placed in random locations on the board. 
 print("The computer is randomly selecting locations for their ships.")
@@ -49,3 +51,18 @@ def display_board(area):
     for i in range(board_size):
         print(f"{i} | {' '.join(area[i])} |")
     print("  +" + "--" * GAME_AREA + "+")
+
+
+# Function to display the game area
+def display(board):
+    print("   " + " ".join(str(i) for i in range(GAME_AREA)))
+    print("  +" + "--" * GAME_AREA + "+")
+    for i in range(GAME_AREA):
+        print(f"{i} | {' '.join(board[i])} |")
+    print("  +" + "--" * GAME_AREA + "+")
+
+# Function that checks whether or not guesses are hit or miss.
+def target_eliminated(area, row, col):
+    if area[row][col] == 'S':
+        area[ro][col] == 'O'
+        print("Direct Hit!\n")
