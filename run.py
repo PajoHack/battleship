@@ -46,7 +46,7 @@ for i in range(3):
 
 # Function to print the board to the terminal
 def display_board(area):
-    print("   " + " ".join(str(i) for i in range(GAME_AREA)))
+    print("    " + " ".join(str(i) for i in range(GAME_AREA)))
     print("  +" + "--" * GAME_AREA + "+")
     for i in range(GAME_AREA):
         print(f"{i} | {' '.join(area[i])} |")
