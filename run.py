@@ -44,8 +44,11 @@ for i in range(3):
             permitted_location = True
 
 
-# Function to print the board to the terminal
 def display_board(area):
+    """
+    function iterates over all of the squares in the game area
+    and prints them out with spaces between them.
+    """
     print("    " + " ".join(str(i) for i in range(GAME_AREA)))
     print("  +" + "--" * GAME_AREA + "+")
     for i in range(GAME_AREA):
@@ -53,12 +56,16 @@ def display_board(area):
     print("  +" + "--" * GAME_AREA + "+")
 
 
-# Function that checks whether or not guesses are hit or miss.
 def eliminate_target(area, row, col):
+    """
+    This function tries to find the target in the game area.
+    If it finds 'S' it changes that square to an 'O' indicating a hit.
+    Also an 'X' is printed to the squares to indicate the computer missed.
+    """
     if area[row][col] == 'S':
         area[row][col] = 'O'
         print(f"Direct Hit!\n")
-        return True 
+        return True
     else:
         area[row][col] = 'X'
         print(f"Missed!\n")
@@ -91,7 +98,7 @@ while True:
             print(f"{user_name}, you have sunk all of your opponents battleships! You are the winner!")
             break
 
-    # the PC
+    # the PC's turn to shoot
     print("The computer is taking it's shot...")
     pc_pick_row = random.randint(0, GAME_AREA-1)
     pc_pick_col = random.randint(0, GAME_AREA-1)
