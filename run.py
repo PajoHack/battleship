@@ -5,6 +5,19 @@ GAME_AREA = 5
 user_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
 pc_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
 user_name = input("Please enter your name: ")
+LEGEND = """
+Legend:
+
+S = Your Ship
+X = Miss by the computer
+O = You hit the computers battleship
+
+Board:
+
+row = row
+col = column
+"""
+print(LEGEND)
 
 # Welcome message and user asked to place ships on the board
 # Invalid enteries checked and user is asked to re-enter input if location
@@ -12,13 +25,14 @@ user_name = input("Please enter your name: ")
 # an int between 0 - 4 is inputted. User is also informed if they have already 
 # selected this location on the board.
 print((f"{user_name}, Welcome to Battleship!"))
+print("Begin by placing 3 battleships on the board.")
 print("The board is 5 x 5. please enter 0 - 4 for your selections.\n")
 for i in range(3):
     permitted_location = False
     while not permitted_location:
         try:
             row = int(input(f"Please select row for ship {i + 1}: "))
-            col = int(input(f"Please select column for ship {i + 1} "))
+            col = int(input(f"Please select col for ship {i + 1}: "))
             print("\n")
             if row < GAME_AREA and col < GAME_AREA:
                 if user_board[row][col] == ' ':
@@ -81,7 +95,7 @@ while True:
     while not guess_is_good:
         try:
             pick_row = int(input("Choose row: "))
-            pick_col = int(input("Choose column: "))
+            pick_col = int(input("Choose col: "))
             if pick_row < GAME_AREA and pick_col < GAME_AREA:
                 if user_board[pick_row][pick_col] == 'X' or user_board[pick_row][pick_col] == 'O':
                     print("You've picked that location already. Try another!")
