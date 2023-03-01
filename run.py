@@ -1,25 +1,29 @@
 import random
+from termcolor import colored
 
 # Game setup
-GAME_AREA = 5
-user_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
-pc_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
+game_area = 5
+user_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
+pc_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
 user_name = input("Please enter your name: ")
 LEGEND = """
-Legend:
-
-S = Your Ship
-X = Miss by the computer
-O = You hit the computers battleship
-
-Board:
-
-row = row
-col = column
+----------------------------------------+
+LEGEND:                                 |
+                                        |
+S = Your Ship                           |
+X = Miss by the computer                |
+O = The computer sunk your battleship   |
+                                        |
+BOARD:                                  |
+                                        |
+row = row                               |
+col = column                            |
+----------------------------------------+
 """
+
 print(LEGEND)
 
-def game_setup(GAME_AREA, user_board, pc_board, user_name):
+def game_setup(game_area, user_board, pc_board, user_name):
     """
     function asks user to place 3 ships on the board.
     The function also randomly places 3 ships on the board for the computer.
@@ -31,9 +35,9 @@ def game_setup(GAME_AREA, user_board, pc_board, user_name):
     location that already has a ship,
     the function will randomly select a new location for the ship.
     """
-    print((f"{user_name}, Welcome to Battleship!"))
-    print("Begin by placing 3 battleships on the board.")
-    print("The board is 5 x 5. please enter 0 - 4 for your selections.\n")
+    print(colored(f'{user_name}, Welcome to Battleship!', 'green', attrs=['bold']))
+    print(colored('Begin by placing 3 battleships on the board.', 'green', attrs=['bold']))
+    print(colored('The board is 5 x 5. please enter 0 - 4 for your selections.\n', 'green', attrs=['bold']))
     for i in range(3):
         permitted_location = False
         while not permitted_location:
@@ -41,30 +45,30 @@ def game_setup(GAME_AREA, user_board, pc_board, user_name):
                 row = int(input(f"Please select row for ship {i + 1}: "))
                 col = int(input(f"Please select col for ship {i + 1}: "))
                 print("\n")
-                if row < GAME_AREA and col < GAME_AREA:
+                if row <= game_area and col <= game_area:
                     if user_board[row][col] == ' ':
                         user_board[row][col] = 'S'
                         permitted_location = True
                     else:
                         print("A ship is already in this location.")
                 else:
-                    print(f"Location is not on the board. Choose between 0 and 4.")
+                    print("Location not on the board. Choose between 0 and 4")
             except ValueError:
                 print("Input is not valid. Please enter a whole number.")
 
-
-    # PC's ships are created and placed in random locations on the board. 
+    # PC's ships are created and placed in random locations on the board.
     print("The computer is randomly selecting locations for their ships.\n")
     for i in range(3):
         permitted_location = False
         while not permitted_location:
-            row = random.randint(0, GAME_AREA-1)
-            col = random.randint(0, GAME_AREA-1)
+            row = random.randint(0, game_area-1)
+            col = random.randint(0, game_area-1)
             if pc_board[row][col] == ' ':
                 pc_board[row][col] = 'S'
                 permitted_location = True
 
-game_setup(GAME_AREA, user_board, pc_board, user_name)
+
+game_setup(game_area, user_board, pc_board, user_name)
 
 
 def display_board(area):
@@ -72,11 +76,11 @@ def display_board(area):
     function iterates over all of the squares in the game area
     and prints them out with spaces between them.
     """
-    print("    " + " ".join(str(i) for i in range(GAME_AREA)))
-    print("  +" + "--" * GAME_AREA + "+")
-    for i in range(GAME_AREA):
+    print("    " + " ".join(str(i) for i in range(game_area)))
+    print("  +" + "--" * game_area + "+")
+    for i in range(game_area):
         print(f"{i} | {' '.join(area[i])} |")
-    print("  +" + "--" * GAME_AREA + "+")
+    print("  +" + "--" * game_area + "+")
 
 
 def eliminate_target(area, row, col):
@@ -87,50 +91,51 @@ def eliminate_target(area, row, col):
     """
     if area[row][col] == 'S':
         area[row][col] = 'O'
-        print(f"Direct Hit!\n")
+        print(colored(f'Direct Hit!\n', 'blue'))
         return True
     else:
         area[row][col] = 'X'
-        print(f"Missed!\n")
+        print(colored(f'Missed!\n', 'blue'))
         return False
 
 
 # Game loop
 while True:
     # Player's turn
-    print(f"{user_name}, take your shot.\n")
+    print(colored(f'{user_name}, take your shot.\n', 'blue'))
     display_board(user_board)
     guess_is_good = False
     while not guess_is_good:
         try:
-            pick_row = int(input("Choose row: "))
-            pick_col = int(input("Choose col: "))
-            if pick_row < GAME_AREA and pick_col < GAME_AREA:
-                if user_board[pick_row][pick_col] == 'X' or user_board[pick_row][pick_col] == 'O':
-                    print("You've picked that location already. Try another!")
+            pick_row = int(input(colored("Choose row: ", 'yellow')))
+            pick_col = int(input(colored("Choose col: ", 'yellow')))
+            if pick_row < game_area and pick_col < game_area:
+                if user_board[pick_row][pick_col] == 'X' \
+                    or user_board[pick_row][pick_col] == 'O':
+                    print('You picked that location already. Try another!')
                 else:
                     guess_is_good = True
                     eliminate_target(pc_board, pick_row, pick_col)
             else:
-                print("Location is invalid. Please choose values between 0 - 4.")
+                print('Location is invalid. Please choose values between 0 - 4.')
         except ValueError:
             print("Invalid input. Please pick one of 0,1,2,3,4.")
 
     # If the user wins
-        if all('S' not in row for row in pc_board):
-            print(f"{user_name}, you have sunk all of your opponents battleships! You are the winner!")
-            break
+    if all('S' not in row for row in pc_board):
+        print(colored(f'{user_name}, you have sunk all of your opponents battleships! You are the winner!', 'green'))
+        break
 
     # the PC's turn to shoot
-    print("The computer is taking it's shot...")
-    pc_pick_row = random.randint(0, GAME_AREA-1)
-    pc_pick_col = random.randint(0, GAME_AREA-1)
+    print('The computer is taking a shot...')
+    pc_pick_row = random.randint(0, game_area-1)
+    pc_pick_col = random.randint(0, game_area-1)
     while user_board[pc_pick_row][pc_pick_col] == 'X' or user_board[pc_pick_row][pc_pick_col] == 'O':
-        pc_pick_row = random.randint(0, GAME_AREA-1)
-        pc_pick_col = random.randint(0, GAME_AREA-1)
+        pc_pick_row = random.randint(0, game_area-1)
+        pc_pick_col = random.randint(0, game_area-1)
     eliminate_target(user_board, pc_pick_row, pc_pick_col)
 
     # If the PC wins
     if all('S' not in row for row in user_board):
-        print("The computer has sunk all of your Battleships! You lose!")
+        print(colored('The computer has sunk all of your Battleships! You lose!', 'red'))
         break
