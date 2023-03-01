@@ -2,7 +2,11 @@
 
 # Battleship
 
-A brief description of what this project does and who it's for
+This is a Battleships game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
+
+The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships.
+
+[The live version of the project can be seen here](https://ci-battleship-pp3.herokuapp.com/)
 
 
 ## Acknowledgements
