@@ -100,42 +100,53 @@ def eliminate_target(area, row, col):
 
 
 # Game loop
-while True:
+def game_loop(GAME_AREA, user_board, pc_board, user_name, display_board, eliminate_target):
+    """
+    This function is the game loop. It asks the user to pick a location on the board
+    and then the computer randomly picks a location on the board.
+    The function checks if the user has entered a valid location for their ships.
+    If the user has entered an invalid location they are asked to re-enter the location.
+    The function also checks if the computer has randomly placed a ship in a location
+    that already has a ship. If the computer has placed a ship in a location that already
+    has a ship, the function will randomly select a new location for the ship.
+    """
+    while True:
     # Player's turn
-    print(colored(f'{user_name}, take your shot.\n', 'blue'))
-    display_board(user_board)
-    guess_is_good = False
-    while not guess_is_good:
-        try:
-            pick_row = int(input(colored("Choose row: ", 'yellow')))
-            pick_col = int(input(colored("Choose col: ", 'yellow')))
-            if pick_row < game_area and pick_col < game_area:
-                if user_board[pick_row][pick_col] == 'X' \
-                    or user_board[pick_row][pick_col] == 'O':
-                    print('You picked that location already. Try another!')
+        print(f"{user_name}, take your shot.\n")
+        display_board(user_board)
+        guess_is_good = False
+        while not guess_is_good:
+            try:
+                pick_row = int(input(colored("Choose row: ", 'yellow')))
+                pick_col = int(input(colored("Choose col: ", 'yellow')))
+                if pick_row < GAME_AREA and pick_col < GAME_AREA:
+                    if user_board[pick_row][pick_col] == 'X' or user_board[pick_row][pick_col] == 'O':
+                        print("You've picked that location already. Try another!")
+                    else:
+                        guess_is_good = True
+                        eliminate_target(pc_board, pick_row, pick_col)
                 else:
-                    guess_is_good = True
-                    eliminate_target(pc_board, pick_row, pick_col)
-            else:
-                print('Location is invalid. Please choose values between 0 - 4.')
-        except ValueError:
-            print("Invalid input. Please pick one of 0,1,2,3,4.")
+                    print("Location is invalid. Please choose values between 0 - 4.")
+            except ValueError:
+                print("Invalid input. Please pick one of 0,1,2,3,4.")
 
     # If the user wins
-    if all('S' not in row for row in pc_board):
-        print(colored(f'{user_name}, you have sunk all of your opponents battleships! You are the winner!', 'green'))
-        break
+        if all('S' not in row for row in pc_board):
+            print(colored(f'{user_name}, you have sunk all of your opponents battleships! You are the winner!', 'green'))
+            break
 
     # the PC's turn to shoot
-    print('The computer is taking a shot...')
-    pc_pick_row = random.randint(0, game_area-1)
-    pc_pick_col = random.randint(0, game_area-1)
-    while user_board[pc_pick_row][pc_pick_col] == 'X' or user_board[pc_pick_row][pc_pick_col] == 'O':
-        pc_pick_row = random.randint(0, game_area-1)
-        pc_pick_col = random.randint(0, game_area-1)
-    eliminate_target(user_board, pc_pick_row, pc_pick_col)
+        print("The computer is taking it's shot...")
+        pc_pick_row = random.randint(0, GAME_AREA-1)
+        pc_pick_col = random.randint(0, GAME_AREA-1)
+        while user_board[pc_pick_row][pc_pick_col] == 'X' or user_board[pc_pick_row][pc_pick_col] == 'O':
+            pc_pick_row = random.randint(0, GAME_AREA-1)
+            pc_pick_col = random.randint(0, GAME_AREA-1)
+        eliminate_target(user_board, pc_pick_row, pc_pick_col)
 
     # If the PC wins
-    if all('S' not in row for row in user_board):
-        print(colored('The computer has sunk all of your Battleships! You lose!', 'red'))
-        break
+        if all('S' not in row for row in user_board):
+            print(colored('The computer has sunk all of your Battleships! You lose!', 'red'))
+            break
+
+game_loop(game_area, user_board, pc_board, user_name, display_board, eliminate_target)
