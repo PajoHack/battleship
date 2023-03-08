@@ -3,9 +3,7 @@ from termcolor import colored
 
 # Game setup
 game_area = 5
-user_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
-pc_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
-user_name = input("Please enter your name: ")
+
 
 TITLE = """
 888             888   888   888                888     d8b         
@@ -20,8 +18,6 @@ TITLE = """
                                                           888      
                                                           888  
 """
-
-print(TITLE)
 
 LEGEND = """
 ----------------------------------------+
@@ -38,7 +34,23 @@ col = column                            |
 ----------------------------------------+
 """
 
-print(LEGEND)
+
+def clear_screen():
+    """
+    Clear the console screen.
+    This function uses the ANSI escape code '\033c' to clear the console.
+    """
+    print('\033c')
+    
+
+def display_header():
+    """
+    Clears the screen and displays the title and legend of the program.
+    """
+    clear_screen()
+    print(TITLE)
+    print(LEGEND)
+
 
 def game_setup(game_area, user_board, pc_board, user_name):
     """
@@ -56,13 +68,14 @@ def game_setup(game_area, user_board, pc_board, user_name):
     print(colored('Begin by placing 3 battleships on the board.', 'green'))
     print(colored('The board is 5 x 5. please enter 0 - 4 for your selections.\n', 'green'))
     for i in range(3):
+        display_board(user_board)
         permitted_location = False
         while not permitted_location:
             try:
                 row = int(input(f"Please select row for ship {i + 1}: "))
                 col = int(input(f"Please select col for ship {i + 1}: "))
                 print("\n")
-                if row <= game_area and col <= game_area:
+                if row < game_area and col < game_area:
                     if user_board[row][col] == ' ':
                         user_board[row][col] = 'S'
                         permitted_location = True
@@ -85,7 +98,7 @@ def game_setup(game_area, user_board, pc_board, user_name):
                 permitted_location = True
 
 
-game_setup(game_area, user_board, pc_board, user_name)
+
 
 
 def display_board(area):
@@ -148,12 +161,12 @@ def game_loop(GAME_AREA, user_board, pc_board, user_name, display_board, elimina
             except ValueError:
                 print("Invalid input. Please pick one of 0,1,2,3,4.")
 
-    # If the user wins
+        # If the user wins
         if all('S' not in row for row in pc_board):
             print(colored(f'{user_name}, you have sunk all of your opponents battleships! You are the winner!', 'green'))
             break
 
-    # the PC's turn to shoot
+        # the PC's turn to shoot
         print("The computer is taking it's shot...")
         pc_pick_row = random.randint(0, GAME_AREA-1)
         pc_pick_col = random.randint(0, GAME_AREA-1)
@@ -162,10 +175,18 @@ def game_loop(GAME_AREA, user_board, pc_board, user_name, display_board, elimina
             pc_pick_col = random.randint(0, GAME_AREA-1)
         eliminate_target(user_board, pc_pick_row, pc_pick_col)
 
-    # If the PC wins
+        # If the PC wins
         if all('S' not in row for row in user_board):
             print(colored('The computer has sunk all of your Battleships! You lose!', 'red'))
             break
 
+def main():
+    display_header()
+    user_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
+    pc_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
+    user_name = input("Please enter your name: ")
+    display_header()
+    game_setup(game_area, user_board, pc_board, user_name)
+    game_loop(game_area, user_board, pc_board, user_name, display_board, eliminate_target)
 
-game_loop(game_area, user_board, pc_board, user_name, display_board, eliminate_target)
+main()
