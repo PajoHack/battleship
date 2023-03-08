@@ -6,6 +6,23 @@ game_area = 5
 user_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
 pc_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
 user_name = input("Please enter your name: ")
+
+TITLE = """
+888             888   888   888                888     d8b         
+888             888   888   888                888     Y8P         
+888             888   888   888                888                 
+88888b.  8888b. 888888888888888 .d88b. .d8888b 88888b. 88888888b.  
+888 "88b    "88b888   888   888d8P  Y8b88K     888 "88b888888 "88b 
+888  888.d888888888   888   88888888888"Y8888b.888  888888888  888 
+888 d88P888  888Y88b. Y88b. 888Y8b.         X88888  888888888 d88P 
+88888P" "Y888888 "Y888 "Y888888 "Y8888  88888P'888  88888888888P"  
+                                                          888      
+                                                          888      
+                                                          888  
+"""
+
+print(TITLE)
+
 LEGEND = """
 ----------------------------------------+
 LEGEND:                                 |
@@ -35,9 +52,9 @@ def game_setup(game_area, user_board, pc_board, user_name):
     location that already has a ship,
     the function will randomly select a new location for the ship.
     """
-    print(colored(f'{user_name}, Welcome to Battleship!', 'green', attrs=['bold']))
-    print(colored('Begin by placing 3 battleships on the board.', 'green', attrs=['bold']))
-    print(colored('The board is 5 x 5. please enter 0 - 4 for your selections.\n', 'green', attrs=['bold']))
+    print(colored(f'{user_name}, Welcome to Battleship!', 'green'))
+    print(colored('Begin by placing 3 battleships on the board.', 'green'))
+    print(colored('The board is 5 x 5. please enter 0 - 4 for your selections.\n', 'green'))
     for i in range(3):
         permitted_location = False
         while not permitted_location:
@@ -57,7 +74,7 @@ def game_setup(game_area, user_board, pc_board, user_name):
                 print("Input is not valid. Please enter a whole number.")
 
     # PC's ships are created and placed in random locations on the board.
-    print("The computer is randomly selecting locations for their ships.\n")
+    print("The computer is randomly selecting locations for ship placement.\n")
     for i in range(3):
         permitted_location = False
         while not permitted_location:
@@ -111,14 +128,15 @@ def game_loop(GAME_AREA, user_board, pc_board, user_name, display_board, elimina
     has a ship, the function will randomly select a new location for the ship.
     """
     while True:
-    # Player's turn
-        print(f"{user_name}, take your shot.\n")
+        # Player's turn
+        print(colored(f"{user_name}, take your shot.\n", "blue"))
         display_board(user_board)
         guess_is_good = False
         while not guess_is_good:
             try:
                 pick_row = int(input(colored("Choose row: ", 'yellow')))
                 pick_col = int(input(colored("Choose col: ", 'yellow')))
+                print("\n")
                 if pick_row < GAME_AREA and pick_col < GAME_AREA:
                     if user_board[pick_row][pick_col] == 'X' or user_board[pick_row][pick_col] == 'O':
                         print("You've picked that location already. Try another!")
@@ -148,5 +166,6 @@ def game_loop(GAME_AREA, user_board, pc_board, user_name, display_board, elimina
         if all('S' not in row for row in user_board):
             print(colored('The computer has sunk all of your Battleships! You lose!', 'red'))
             break
+
 
 game_loop(game_area, user_board, pc_board, user_name, display_board, eliminate_target)
