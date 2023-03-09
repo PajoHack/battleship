@@ -1,19 +1,22 @@
+"""
+Importing random & colored from termcolor
+"""
 import random
 from termcolor import colored
 
 # Game setup
-game_area = 5
+GAME_AREA = 5
 
-
-TITLE = """
- _           _   _   _           _     _      
-| |         | | | | | |         | |   (_)    
-| |__   __ _| |_| |_| | ___  ___| |__  _ _ __ 
-| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \ 
+# pylint: disable-next=global-statement
+TITLE = r"""
+ _           _   _   _           _     _
+| |         | | | | | |         | |   (_)
+| |__   __ _| |_| |_| | ___  ___| |__  _  __
+| '_ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \
 | |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) |
-|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/ 
-                                        | |   
-                                        |_|  
+|_.__/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/
+                                        | |
+                                        |_|
 """
 
 LEGEND = """
@@ -49,7 +52,7 @@ def display_header():
     print(LEGEND)
 
 
-def game_setup(game_area, user_board, pc_board, user_name):
+def game_setup(area, user_board, pc_board, user_name):
     """
     function asks user to place 3 ships on the board.
     The function also randomly places 3 ships on the board for the computer.
@@ -57,8 +60,7 @@ def game_setup(game_area, user_board, pc_board, user_name):
     their ships. If the user has entered an invalid location they are
     asked to re-enter the location. The function also checks if the
     computer has randomly placed a ship in a location
-    that already has a ship. If the computer has placed a ship in a
-    location that already has a ship,
+    that already has a ship. If it has,
     the function will randomly select a new location for the ship.
     """
     print(colored(f'{user_name}, Welcome to Battleship!', 'green'))
@@ -73,7 +75,7 @@ def game_setup(game_area, user_board, pc_board, user_name):
                 row = int(input(f"Please select row for ship {i + 1}: "))
                 col = int(input(f"Please select col for ship {i + 1}: "))
                 print("\n")
-                if row < game_area and col < game_area:
+                if row < GAME_AREA and col < GAME_AREA:
                     if user_board[row][col] == ' ':
                         user_board[row][col] = 'S'
                         permitted_location = True
@@ -89,8 +91,8 @@ def game_setup(game_area, user_board, pc_board, user_name):
     for i in range(3):
         permitted_location = False
         while not permitted_location:
-            row = random.randint(0, game_area-1)
-            col = random.randint(0, game_area-1)
+            row = random.randint(0, GAME_AREA-1)
+            col = random.randint(0, GAME_AREA-1)
             if pc_board[row][col] == ' ':
                 pc_board[row][col] = 'S'
                 permitted_location = True
@@ -101,11 +103,11 @@ def display_board(area):
     function iterates over all of the squares in the game area
     and prints them out with spaces between them.
     """
-    print("    " + " ".join(str(i) for i in range(game_area)))
-    print("  +" + "--" * game_area + "+")
-    for i in range(game_area):
+    print("    " + " ".join(str(i) for i in range(GAME_AREA)))
+    print("  +" + "--" * GAME_AREA + "+")
+    for i in range(GAME_AREA):
         print(f"{i} | {' '.join(area[i])} |")
-    print("  +" + "--" * game_area + "+")
+    print("  +" + "--" * GAME_AREA + "+")
 
 
 def eliminate_target(area, row, col):
@@ -125,8 +127,8 @@ def eliminate_target(area, row, col):
 
 
 # Game loop
-def game_loop(GAME_AREA, user_board, pc_board,
-              user_name, display_board, eliminate_target):
+def game_loop(area, user_board, pc_board,
+              user_name, board, eliminate):
     """
     This function is the game loop.
     It asks the user to pick a location on the board
@@ -175,7 +177,7 @@ def game_loop(GAME_AREA, user_board, pc_board,
         pc_pick_row = random.randint(0, GAME_AREA-1)
         pc_pick_col = random.randint(0, GAME_AREA-1)
         while user_board[pc_pick_row][pc_pick_col] == 'X' \
-        or user_board[pc_pick_row][pc_pick_col] == 'O':
+                or user_board[pc_pick_row][pc_pick_col] == 'O':
             pc_pick_row = random.randint(0, GAME_AREA-1)
             pc_pick_col = random.randint(0, GAME_AREA-1)
         eliminate_target(user_board, pc_pick_row, pc_pick_col)
@@ -186,21 +188,37 @@ def game_loop(GAME_AREA, user_board, pc_board,
             break
 
 
-def main():
+def play_game():
     """
-    This function is the entry point of the Battleship game. It displays the
-    game header, prompts the user to enter their name,
-    sets up the game boards for the player and computer,
-    and then starts the game loop.
+    This function is the main function.
+    It calls the display_header function to display the header.
+    It also calls the game_setup function to set up the game.
+    It calls the game_loop function to start the game.
+    It also asks the user if they want to play again.
     """
     display_header()
-    user_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
-    pc_board = [[' ' for _ in range(game_area)] for _ in range(game_area)]
-    user_name = input("Please enter your name: ")
-    display_header()
-    game_setup(game_area, user_board, pc_board, user_name)
-    game_loop(game_area, user_board, pc_board, user_name,
-              display_board, eliminate_target)
+    while True:
+        # Initialize game variables
+        user_board = [[' ' for _ in range(GAME_AREA)] for _ in
+                      range(GAME_AREA)]
+        pc_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
+        user_name = input("Please enter your name: ")
+
+        # Start game
+        game_setup(GAME_AREA, user_board, pc_board, user_name)
+        game_loop(GAME_AREA, user_board, pc_board, user_name, display_board,
+                  eliminate_target)
+
+        # Prompt user to play again
+        play_again = input("Would you like to play again? (y/n) ").lower()
+        while play_again not in ['y', 'n']:
+            play_again = input("Invalid input."
+                               "Please enter 'y' or 'n': ").lower()
+
+        # Exit loop if user doesn't want to play again
+        if play_again == 'n':
+            print("Thanks for playing!")
+            break
 
 
-main()
+play_game()

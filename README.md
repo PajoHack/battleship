@@ -56,6 +56,10 @@ You can read more about the game origin and other facts [Battleship Wikipedia](h
 
 ![Game over](documentation/game_over.png)
 
+- Here the user wins. At the end of the game the user is given a choice to play again.
+
+![You win](documentation/you_win.png)
+
 ## Future Features
 
 - Have a scoreboard displayed to track and show the current score.
