@@ -5,12 +5,14 @@ This is a Battleship game written in python, the game runs in the terminal. You 
 
 The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then asked to place three ships on the board.
 
+You can read more about the game origin and other facts [Battleship Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
+
 [The live version of the project can be seen here](https://ci-battleship-pp3.herokuapp.com/)
 
 
 ## Features
 
-- The title "battleship" is displayed when the game is run. 
+- The title "battleship" is displayed when the game runs. 
 - A legend is also displayed to show the user what each character represents. 
 - An input asking the user for their name is also displayed.
 
@@ -19,21 +21,24 @@ The user attempts to defeat the computer by sinking it's battleships and in turn
 - A welcome message containing the users name is displayed.
 - The user is asked to begin by placing 3 ships on the board.
 - The user is also told that the game area / board is 5 rows x 5 columns.
-- It is also explained how to place their ships on the board by selecting digits from 0 to 4.
+- It is also explained how to place user ships on the board by selecting digits from 0 to 4.
 
 ![Welcome user](documentation/welcome_user.png)
 
-- The user makes their selections 
+- The user makes their selections by first selecting a row, and then a column.
+- They do this 3 times. Once per ship. An 'S' is displayed on the board to represent the player's ship.
 
 ![User places ships on the board](documentation/placing_ships.png)
 
 - Next the computer randomly selects 3 locations on the board for it's ships.
 - The game can now begin and the user is encouraged to take the first shot.
+- Users take shots by first selecting a row number followed by a column number.
 
 ![PC places it's ships](documentation/pc_selects_locations.png)
 
 - The user is told if their shot was a hit or a miss.
 - The computer then takes a shot and the user is informed if it hit or missed.
+- Failed efforts by the computer are represented on the board by an 'X'.
 - Then the game loop continues.
 
 ![Missed shot](documentation/missed_shot.png)
@@ -43,7 +48,7 @@ The user attempts to defeat the computer by sinking it's battleships and in turn
 
 ![Direct Hit](documentation/direct_hit.png)
 
-- If the user chooses a location that they previous selected, they are promted to choose again.
+- If the user fires at a location that they previous selected, they are promted to choose again.
 
 ![Already selected](documentation/already_selected.png)
 
@@ -51,6 +56,11 @@ The user attempts to defeat the computer by sinking it's battleships and in turn
 
 ![Game over](documentation/game_over.png)
 
+## Future Features
+
+- Have a scoreboard displayed to track and show the current score.
+- Allow the user to select board size and number of ships.
+- Create ships that take up more spaces on the board, currently they are 1x1.
 
 ## Testing
 ## Bugs
@@ -69,4 +79,3 @@ This project was deployed using Code Institute's mock terminal for Heroku.
 
 - The ASCII art used for the title of the game was taken from [ascii.co.uk](https://ascii.co.uk/art/battleship).
 - Code Institute for allowing me use of their deployment terminal.
-## Technologies & Tools Used
