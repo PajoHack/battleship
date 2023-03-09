@@ -1,9 +1,9 @@
 
 # Battleship
 
-This is a Battleships game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
+This is a Battleship game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
 
-The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships.
+The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then asked to place three ships on the board.
 
 [The live version of the project can be seen here](https://ci-battleship-pp3.herokuapp.com/)
 
@@ -11,7 +11,7 @@ The user attempts to defeat the computer by sinking it's battleships and in turn
 ## Features
 
 - The title "battleship" is displayed when the game is run. 
-- A legend is also displayed to show the user what each charachter represents. 
+- A legend is also displayed to show the user what each character represents. 
 - An input asking the user for their name is also displayed.
 
 ![On game start](documentation/on_game_start.png)
@@ -39,6 +39,7 @@ The user attempts to defeat the computer by sinking it's battleships and in turn
 ![Missed shot](documentation/missed_shot.png)
 
 - With this shot both the player and computer sink a battleship!
+- The 'O' on the board tells the user that one of their ships has been sunk.
 
 ![Direct Hit](documentation/direct_hit.png)
 
@@ -55,16 +56,17 @@ The user attempts to defeat the computer by sinking it's battleships and in turn
 ## Bugs
 ## Deployment
 
-To deploy this project run
+This project was deployed using Code Institute's mock terminal for Heroku.
 
-```bash
-  npm run deploy
-```
+- Deploymetn steps:
+   - Fork or clone this repository.
+   - Create a new Heroku app.
+   - Set the buildpacks to Python & NodeJS in that order.
+   - Link the Heroku app to the repository.
+   - Click on Deploy.
 
-## Acknowledgements
-
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 ## Credits
+
+- The ASCII art used for the title of the game was taken from [ascii.co.uk](https://ascii.co.uk/art/battleship).
+- Code Institute for allowing me use of their deployment terminal.
 ## Technologies & Tools Used
