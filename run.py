@@ -125,9 +125,7 @@ def eliminate_target(area, row, col):
         return False
 
 
-# Game loop
-def game_loop(user_board, pc_board,
-              user_name, board, eliminate):
+def game_loop(user_board, pc_board, user_name):
     """
     This function is the game loop.
     It asks the user to pick a location on the board
@@ -155,14 +153,14 @@ def game_loop(user_board, pc_board,
                 if pick_row < GAME_AREA and pick_col < GAME_AREA:
                     if user_board[pick_row][pick_col] == 'X' or\
                          user_board[pick_row][pick_col] == 'O':
-                        print("You've picked that location already.\
-                             Try another!")
+                        print("You've picked that location already."
+                              "Try another!")
                     else:
                         guess_is_good = True
                         eliminate_target(pc_board, pick_row, pick_col)
                 else:
-                    print("Location is invalid. Please choose values\
-                         between 0 - 4.")
+                    print("Location is invalid. Please choose values"
+                          "between 0 - 4.")
             except ValueError:
                 print("Invalid input. Please pick one of 0,1,2,3,4.")
 
@@ -210,8 +208,7 @@ def play_game():
 
         # Start game
         game_setup(user_board, pc_board, user_name)
-        game_loop(user_board, pc_board, user_name, display_board,
-                  eliminate_target)
+        game_loop(user_board, pc_board, user_name)
 
         # Prompt user to play again
         play_again = input("Would you like to play again? (y/n) ").lower()
