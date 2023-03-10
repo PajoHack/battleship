@@ -1,4 +1,4 @@
-<base target="_blank">
+
 # Battleship
 
 This is a Battleship game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
