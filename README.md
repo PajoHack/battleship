@@ -68,7 +68,11 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 ## Data Model
 
-
+- The `game_setup()` function asks the user to place 3 ships on the board. It also places 3 ships on the board for the computer. If the user input is invalid, i.e. a string or a location outside of the board, the user is prompted to go again.
+- The `display_board()` function iterates over all of the squares in the game area and prints them out.
+- The `eliminate_target()` function tries to find targets in the game area. If it finds ‘S’, representing a user ship, it changes it to ‘O’, indicating the user’s ship has been sunk. If it finds an empty square an ‘X’ is printed to that square showing that the computer missed.
+- The `game_loop()` function asks the user to pick a location on the board and then the computer takes a random guess. The function checks to see if the user input is valid, if not they are asked to re-enter their input. The loop continues until either the user or computer sinks their opponents’ ships.
+- The `play_game()` function is the main function. It calls all the main functions containing the game code.
 
 ## Testing
 

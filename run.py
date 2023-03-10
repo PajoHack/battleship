@@ -7,7 +7,6 @@ from termcolor import colored
 # Game setup
 GAME_AREA = 5
 
-# pylint: disable-next=global-statement
 TITLE = r"""
  _           _   _   _           _     _
 | |         | | | | | |         | |   (_)
@@ -52,7 +51,7 @@ def display_header():
     print(LEGEND)
 
 
-def game_setup(area, user_board, pc_board, user_name):
+def game_setup(user_board, pc_board, user_name):
     """
     function asks user to place 3 ships on the board.
     The function also randomly places 3 ships on the board for the computer.
@@ -127,7 +126,7 @@ def eliminate_target(area, row, col):
 
 
 # Game loop
-def game_loop(area, user_board, pc_board,
+def game_loop(user_board, pc_board,
               user_name, board, eliminate):
     """
     This function is the game loop.
@@ -210,8 +209,8 @@ def play_game():
                 print("Name cannot be blank. Please try again.")
 
         # Start game
-        game_setup(GAME_AREA, user_board, pc_board, user_name)
-        game_loop(GAME_AREA, user_board, pc_board, user_name, display_board,
+        game_setup(user_board, pc_board, user_name)
+        game_loop(user_board, pc_board, user_name, display_board,
                   eliminate_target)
 
         # Prompt user to play again
