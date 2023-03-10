@@ -202,7 +202,12 @@ def play_game():
         user_board = [[' ' for _ in range(GAME_AREA)] for _ in
                       range(GAME_AREA)]
         pc_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
-        user_name = input("Please enter your name: ")
+        while True:
+            user_name = input("Please enter your name: ")
+            if user_name.strip():
+                break
+            else:
+                print("Name cannot be blank. Please try again.")
 
         # Start game
         game_setup(GAME_AREA, user_board, pc_board, user_name)

@@ -30,7 +30,7 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 ![User places ships on the board](documentation/placing_ships.png)
 
-- Next the computer randomly selects 3 locations on the board for it's ships.
+- Next the computer randomly selects 3 locations on the board for it's ships. The computer's ships are not visible to the player.
 - The game can now begin and the user is encouraged to take the first shot.
 - Users take shots by first selecting a row number followed by a column number.
 
@@ -66,6 +66,10 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 - Allow the user to select board size and number of ships.
 - Create ships that take up more spaces on the board, currently they are 1x1.
 
+## Data Model
+
+
+
 ## Testing
 
 I have performed manual testing on this project:
@@ -76,7 +80,7 @@ I have performed manual testing on this project:
 
 ## Bugs
 
-- The break statement in the game loop did not work when the user won the game. This was due to an indentation issue. Correcting the indentation solved resolved the issue.
+- The break statement in the game loop did not work when the user won the game. This was due to an indentation issue. Correcting the indentation resolved the issue.
 - After deployment to Heroku, termcolor was not having any affect. I had forgotten to update my requirements file. typing `pip3 freeze > requirements.txt` in the terminal resolved the issue.
 
 ## Remaining Bugs
