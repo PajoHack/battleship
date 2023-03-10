@@ -1,11 +1,11 @@
-
+<base target="_blank">
 # Battleship
 
 This is a Battleship game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
 
 The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then asked to place three ships on the board.
 
-You can read more about the game origin and other facts [Battleship Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
+You can read more about the game origin and other facts here [Battleship Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
 
 [The live version of the project can be seen here](https://ci-battleship-pp3.herokuapp.com/)
 
