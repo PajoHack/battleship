@@ -67,7 +67,22 @@ You can read more about the game origin and other facts [Battleship Wikipedia](h
 - Create ships that take up more spaces on the board, currently they are 1x1.
 
 ## Testing
+
+I have performed manual testing on this project:
+
+- I used the PEP8 linter to verify that there are no errors in my code.
+- I purposely entered invalid inputs to ensure data validation was working.
+- Tested the project in my local and terminal as well as the Code Institute Heroku terminal.
+
 ## Bugs
+
+- The break statement in the game loop did not work when the user won the game. This was due to an indentation issue. Correcting the indentation solved resolved the issue.
+- After deployment to Heroku, termcolor was not having any affect. I had forgotten to update my requirements file. typing `pip3 freeze > requirements.txt` in the terminal resolved the issue.
+
+## Remaining Bugs
+
+- No remaining bugs that I can find.
+
 ## Deployment
 
 This project was deployed using Code Institute's mock terminal for Heroku.
