@@ -57,10 +57,7 @@ def game_setup(user_board, pc_board, user_name):
     The function also randomly places 3 ships on the board for the computer.
     The function checks if the user has entered a valid location for
     their ships. If the user has entered an invalid location they are
-    asked to re-enter the location. The function also checks if the
-    computer has randomly placed a ship in a location
-    that already has a ship. If it has,
-    the function will randomly select a new location for the ship.
+    asked to re-enter the location.
     """
     print(colored(f'{user_name}, Welcome to Battleship!', 'green'))
     print(colored('Begin by placing 3 battleships on the board.', 'green'))
@@ -86,15 +83,28 @@ def game_setup(user_board, pc_board, user_name):
                 print("Input is not valid. Please enter a whole number.")
 
     # PC's ships are created and placed in random locations on the board.
-    print("The computer is randomly selecting locations for ship placement.\n")
+    print("The computer is randomly selecting locations.\n")
+
+    # Get the locations of the user's ships
+    user_ship_locations = [(r, c) for r in range(GAME_AREA)
+                           for c in range(GAME_AREA)
+                           if user_board[r][c] == 'S']
+
     for i in range(3):
         permitted_location = False
         while not permitted_location:
             row = random.randint(0, GAME_AREA-1)
             col = random.randint(0, GAME_AREA-1)
-            if pc_board[row][col] == ' ':
+            if pc_board[row][col] == ' ' and (row, col)\
+                    not in user_ship_locations:
                 pc_board[row][col] = 'S'
                 permitted_location = True
+
+    # Marking the computer's ships on the board
+    for row in range(GAME_AREA):
+        for col in range(GAME_AREA):
+            if pc_board[row][col] == 'S':
+                user_board[row][col] = '?'
 
 
 def display_board(area):

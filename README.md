@@ -3,7 +3,7 @@
 
 This is a Battleship game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
 
-The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then asked to place three ships on the board.
+The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then, to place three ships on the board.
 
 You can read more about the game origin and other facts here [Battleship Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
 
@@ -65,10 +65,11 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 - Have a scoreboard displayed to track and show the current score.
 - Allow the user to select board size and number of ships.
 - Create ships that take up more spaces on the board, currently they are 1x1.
+- Allow the user to select the difficulty level, fix computer ship locations rather than have them change places per turn.
 
 ## Data Model
 
-- The `game_setup()` function asks the user to place 3 ships on the board. It also places 3 ships on the board for the computer. If the user input is invalid, i.e. a string or a location outside of the board, the user is prompted to go again.
+- The `game_setup()` function asks the user to place 3 ships on the board. It also places 3 ships on the board for the computer. If the user input is invalid, i.e. a string or a location outside of the board, the user is prompted to select again.
 - The `display_board()` function iterates over all of the squares in the game area and prints them out.
 - The `eliminate_target()` function tries to find targets in the game area. If it finds ‘S’, representing a user ship, it changes it to ‘O’, indicating the user’s ship has been sunk. If it finds an empty square an ‘X’ is printed to that square showing that the computer missed.
 - The `game_loop()` function asks the user to pick a location on the board and then the computer takes a random guess. The function checks to see if the user input is valid, if not they are asked to re-enter their input. The loop continues until either the user or computer sinks their opponents’ ships.
@@ -80,7 +81,8 @@ I have performed manual testing on this project:
 
 - I used the PEP8 linter to verify that there are no errors in my code.
 - I purposely entered invalid inputs to ensure data validation was working.
-- Tested the project in my local and terminal as well as the Code Institute Heroku terminal.
+- Tested the project in my local terminal as well as the Code Institute Heroku terminal.
+- I tested the CI Terminal in Chrome, FireFox, Edge & Safari browsers, the app runs well in all without any noticable differences.
 
 ## Bugs
 
@@ -95,12 +97,13 @@ I have performed manual testing on this project:
 
 This project was deployed using Code Institute's mock terminal for Heroku.
 
-- Deploymetn steps:
+- Deployment steps:
    - Fork or clone this repository.
-   - Create a new Heroku app.
+   - Create a new Heroku app, the app must have an unique name.
    - Set the buildpacks to Python & NodeJS in that order.
-   - Link the Heroku app to the repository.
+   - Link the Heroku app to the GitHub repository.
    - Click on Deploy.
+   - You have the option in Heroku to enable automatic deployment, changes made locally that are pushed to GitHub are then re-deployed in Heroku.
 
 ## Credits
 
