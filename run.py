@@ -1,7 +1,8 @@
 """
-Importing random & colored from termcolor
+Importing random, time & colored from termcolor
 """
 import random
+import time
 from termcolor import colored
 
 # Game setup
@@ -26,10 +27,6 @@ S = Your Ship                           |
 X = Miss by the computer                |
 O = The computer sunk your battleship   |
                                         |
-BOARD:                                  |
-                                        |
-row = row                               |
-col = column                            |
 ----------------------------------------+
 """
 
@@ -51,6 +48,10 @@ def display_header():
     print(LEGEND)
 
 
+import random
+
+GAME_AREA = 5
+
 def game_setup(user_board, pc_board, user_name):
     """
     function asks user to place 3 ships on the board.
@@ -58,11 +59,18 @@ def game_setup(user_board, pc_board, user_name):
     The function checks if the user has entered a valid location for
     their ships. If the user has entered an invalid location they are
     asked to re-enter the location.
+
+    Returns:
+    A list of tuples containing the row and column coordinates of
+    each ship on the computer's board.
     """
+    print("\n")
     print(colored(f'{user_name}, Welcome to Battleship!', 'green'))
     print(colored('Begin by placing 3 battleships on the board.', 'green'))
     print(colored('The board is 5 x 5.', 'green'))
     print(colored('Please enter 0 - 4 for your selections.', 'green'))
+    print("\n")
+    
     for i in range(3):
         display_board(user_board)
         permitted_location = False
@@ -82,6 +90,13 @@ def game_setup(user_board, pc_board, user_name):
             except ValueError:
                 print("Input is not valid. Please enter a whole number.")
 
+    time.sleep(1)
+
+    # Clear the screen, display the header, and show the current game board
+    clear_screen()
+    display_header()
+    display_board(user_board)
+
     # PC's ships are created and placed in random locations on the board.
     print("The computer is randomly selecting locations.\n")
 
@@ -90,21 +105,24 @@ def game_setup(user_board, pc_board, user_name):
                            for c in range(GAME_AREA)
                            if user_board[r][c] == 'S']
 
+    # Place computer's ships randomly
+    pc_ship_locations = []
     for i in range(3):
         permitted_location = False
         while not permitted_location:
             row = random.randint(0, GAME_AREA-1)
             col = random.randint(0, GAME_AREA-1)
-            if pc_board[row][col] == ' ' and (row, col)\
-                    not in user_ship_locations:
+            if pc_board[row][col] == ' ' and (row, col) not in user_ship_locations:
                 pc_board[row][col] = 'S'
+                pc_ship_locations.append((row, col))
                 permitted_location = True
 
-    # Marking the computer's ships on the board
-    for row in range(GAME_AREA):
-        for col in range(GAME_AREA):
-            if pc_board[row][col] == 'S':
-                user_board[row][col] = '?'
+    # Mark computer's ships on the user's board
+    for row, col in pc_ship_locations:
+        user_board[row][col] = '?'
+
+    return pc_ship_locations
+
 
 
 def display_board(area):
@@ -135,7 +153,7 @@ def eliminate_target(area, row, col):
         return False
 
 
-def game_loop(user_board, pc_board, user_name):
+def game_loop(user_board, pc_board, user_name, pc_ship_locations):
     """
     This function is the game loop.
     It asks the user to pick a location on the board
@@ -151,6 +169,9 @@ def game_loop(user_board, pc_board, user_name):
     has a ship, the function will randomly select a new location for the ship.
     """
     while True:
+        # Clear the screen before displaying the updated boards
+        clear_screen()
+        display_header()
         # Player's turn
         print(colored(f"{user_name}, take your shot.\n", "blue"))
         display_board(user_board)
@@ -163,8 +184,8 @@ def game_loop(user_board, pc_board, user_name):
                 if pick_row < GAME_AREA and pick_col < GAME_AREA:
                     if user_board[pick_row][pick_col] == 'X' or\
                          user_board[pick_row][pick_col] == 'O':
-                        print("You've picked that location already."
-                              "Try another!")
+                        print("There are no ships in squares marked X,"
+                              "try again!")
                     else:
                         guess_is_good = True
                         eliminate_target(pc_board, pick_row, pick_col)
@@ -176,23 +197,35 @@ def game_loop(user_board, pc_board, user_name):
 
         # If the user wins
         if all('S' not in row for row in pc_board):
+            clear_screen()
+            display_board(user_board)
             print(colored(f'{user_name}, YOU WIN!', 'green'))
             break
 
         # the PC's turn to shoot
-        print("The computer is taking it's shot...")
+        print("\n")
+        print("The computer is taking its shot...")
+        print("\n")
         pc_pick_row = random.randint(0, GAME_AREA-1)
         pc_pick_col = random.randint(0, GAME_AREA-1)
-        while user_board[pc_pick_row][pc_pick_col] == 'X' \
-                or user_board[pc_pick_row][pc_pick_col] == 'O':
+
+        while (pc_pick_row, pc_pick_col) in pc_ship_locations or\
+                user_board[pc_pick_row][pc_pick_col] == 'X' or\
+                user_board[pc_pick_row][pc_pick_col] == 'O':
             pc_pick_row = random.randint(0, GAME_AREA-1)
             pc_pick_col = random.randint(0, GAME_AREA-1)
+
         eliminate_target(user_board, pc_pick_row, pc_pick_col)
 
         # If the PC wins
         if all('S' not in row for row in user_board):
+            clear_screen()
+            display_board(user_board)
             print(colored('COMPUTER WINS!, ALL YOUR SHIPS ARE SUNK', 'red'))
             break
+
+        # Add a small delay before updating the board display
+        time.sleep(2)
 
 
 def play_game():
@@ -217,8 +250,8 @@ def play_game():
                 print("Name cannot be blank. Please try again.")
 
         # Start game
-        game_setup(user_board, pc_board, user_name)
-        game_loop(user_board, pc_board, user_name)
+        pc_ship_locations = game_setup(user_board, pc_board, user_name)
+        game_loop(user_board, pc_board, user_name, pc_ship_locations)
 
         # Prompt user to play again
         play_again = input("Would you like to play again? (y/n) ").lower()
@@ -228,8 +261,13 @@ def play_game():
 
         # Exit loop if user doesn't want to play again
         if play_again == 'n':
+            clear_screen()
             print("Thanks for playing!")
             break
+
+        # Clear screen and display header if the user wants to play again
+        elif play_again == 'y':
+            display_header()
 
 
 play_game()

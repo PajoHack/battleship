@@ -5,6 +5,8 @@ This is a Battleship game written in python, the game runs in the terminal. You 
 
 The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then, to place three ships on the board.
 
+The computer marks the board with an 'X' if it misses a shot. The game is coded to ensure that the computer does not shoot at or mark locations already containing a computer ship. Therefor the user can be confident that squares marked 'X' do not contain ships. If the user selects a square marked 'X', they are given another try.
+
 You can read more about the game origin and other facts here [Battleship Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
 
 [The live version of the project can be seen here](https://ci-battleship-pp3.herokuapp.com/)
@@ -65,7 +67,7 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 - Have a scoreboard displayed to track and show the current score.
 - Allow the user to select board size and number of ships.
 - Create ships that take up more spaces on the board, currently they are 1x1.
-- Allow the user to select the difficulty level, fix computer ship locations rather than have them change places per turn.
+- Allow the user to select the difficulty level.
 
 ## Data Model
 
@@ -83,6 +85,16 @@ I have performed manual testing on this project:
 - I purposely entered invalid inputs to ensure data validation was working.
 - Tested the project in my local terminal as well as the Code Institute Heroku terminal.
 - I tested the CI Terminal in Chrome, FireFox, Edge & Safari browsers, the app runs well in all without any noticable differences.
+
+During testing I added code to the `game_setup()` function which marked the computer ships on the board.
+
+    Marking the computer's ships on the board
+    `for row in range(GAME_AREA):
+        for col in range(GAME_AREA):
+            if pc_board[row][col] == 'S':
+                user_board[row][col] = '?'`
+
+This code has been removed from the deployed project.
 
 ## Bugs
 
