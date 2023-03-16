@@ -67,6 +67,8 @@ def game_setup(user_board, pc_board, user_name):
     list: A list of tuples containing the row and column coordinates of
     each ship on the computer's board.
     """
+    # Importing color from termcolor enables text to be printed
+    # in color to the terminal
     print("\n")
     print(colored(f'      {user_name}, Welcome to Battleship!', 'green'))
     print(colored('Begin by placing 3 battleships on the board.', 'green'))
@@ -93,6 +95,8 @@ def game_setup(user_board, pc_board, user_name):
             except ValueError:
                 print("Input is not valid. Please enter a whole number.")
 
+    # Wait 1 second before clearing the screen
+    # made possible by importing the time library
     time.sleep(1)
 
     # Clear the screen, display the header, and show the current game board
@@ -209,7 +213,7 @@ def game_loop(user_board, pc_board, user_name, pc_ship_locations):
                 if pick_row < GAME_AREA and pick_col < GAME_AREA:
                     if user_board[pick_row][pick_col] == 'X' or\
                          user_board[pick_row][pick_col] == 'O':
-                        print("There are no enemy ships in squares marked X,"
+                        print("There are no enemy ships in squares marked X, "
                               "try again!")
                     else:
                         guess_is_good = True
@@ -252,6 +256,7 @@ def game_loop(user_board, pc_board, user_name, pc_ship_locations):
             break
 
         # Add a small delay before updating the board display
+        # made possible by importing the time library
         time.sleep(2)
 
 

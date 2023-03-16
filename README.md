@@ -23,7 +23,7 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 ![On game start](documentation/on-game-start.png)
 
-- A welcome message containing the users name is displayed.
+- A welcome message containing the user's name is displayed.
 - The user is asked to begin by placing 3 ships on the board.
 - The user is also told that the game area / board is 5 rows x 5 columns.
 - It is also explained how to place user ships on the board by selecting digits from 0 to 4.
@@ -50,16 +50,16 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 - With this shot both the player and computer sink a battleship!
 - The 'O' on the board tells the user that one of their ships has been sunk.
-- The '@' on the board tells the user that they have sunk one of the computers ships.
+- The '@' on the board tells the user that they have sunk one of the computer ships.
 
 ![Direct Hit](documentation/hit.png)
 ![Sunken ships](documentation/sunken-ships.png)
 
-- If the user fires at a location containing an 'X' or one of their own ships, they are promted to choose again.
+- If the user fires at a location containing an 'X' or one of their own ships, they are prompted to choose again.
 
 ![Already selected](documentation/already-selected.png)
 
-- Here, the computer sunk all the users ships so the game is lost.
+- Here, the computer sank all the users ships so the game is lost.
 
 ![Game over](documentation/game-over.png)
 
@@ -82,7 +82,7 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 - The `game_setup()` function asks the user to place 3 ships on the board. It also places 3 ships on the board for the computer. If the user input is invalid, i.e. a string or a location outside of the board, the user is prompted to select again.
 - The `display_board()` function iterates over all of the squares in the game area and prints them out.
-- The `eliminate_target()` function tries to find targets in the game area. If it finds ‘S’, representing a user ship, it changes it to ‘O’, indicating the user’s ship has been sunk. If it finds an empty square an ‘X’ is printed to that square showing that the computer missed.
+- The `eliminate_target()` function tries to find targets in the game area. If it finds ‘S’, representing a user ship, it changes it to ‘O’, indicating the user’s ship is sunk. If it finds an empty square an ‘X’ is printed to that square showing that the computer missed.
 - The `game_loop()` function asks the user to pick a location on the board and then the computer takes a random guess. The function checks to see if the user input is valid, if not they are asked to re-enter their input. The loop continues until either the user or computer sinks their opponents’ ships.
 - The `play_game()` function is the main function. It calls all the main functions containing the game code.
 
@@ -129,5 +129,5 @@ This project was deployed using Code Institute's mock terminal for Heroku.
 ## Credits
 
 - The ASCII art used for the title of the game was taken from [ascii.co.uk](https://ascii.co.uk/art/battleship).
-- Code Institute for allowing me use of their deployment terminal.
+- Code Institute for allowing me the use of their deployment terminal.
 - Wikipedia for information about the battleship game.
