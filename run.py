@@ -26,6 +26,7 @@ LEGEND:                                 |
 S = Your Ship                           |
 X = Miss by the computer                |
 O = The computer sunk your battleship   |
+@ = You sunk the computers ship         |
                                         |
 ----------------------------------------+
 """
@@ -48,9 +49,8 @@ def display_header():
     print(LEGEND)
 
 
-import random
-
 GAME_AREA = 5
+
 
 def game_setup(user_board, pc_board, user_name):
     """
@@ -65,12 +65,12 @@ def game_setup(user_board, pc_board, user_name):
     each ship on the computer's board.
     """
     print("\n")
-    print(colored(f'{user_name}, Welcome to Battleship!', 'green'))
+    print(colored(f'      {user_name}, Welcome to Battleship!', 'green'))
     print(colored('Begin by placing 3 battleships on the board.', 'green'))
-    print(colored('The board is 5 x 5.', 'green'))
+    print(colored('          The board is 5 x 5.', 'green'))
     print(colored('Please enter 0 - 4 for your selections.', 'green'))
     print("\n")
-    
+
     for i in range(3):
         display_board(user_board)
         permitted_location = False
@@ -112,7 +112,8 @@ def game_setup(user_board, pc_board, user_name):
         while not permitted_location:
             row = random.randint(0, GAME_AREA-1)
             col = random.randint(0, GAME_AREA-1)
-            if pc_board[row][col] == ' ' and (row, col) not in user_ship_locations:
+            if pc_board[row][col] == ' ' and (row, col)\
+                    not in user_ship_locations:
                 pc_board[row][col] = 'S'
                 pc_ship_locations.append((row, col))
                 permitted_location = True
@@ -122,7 +123,6 @@ def game_setup(user_board, pc_board, user_name):
         user_board[row][col] = '?'
 
     return pc_ship_locations
-
 
 
 def display_board(area):
@@ -184,11 +184,13 @@ def game_loop(user_board, pc_board, user_name, pc_ship_locations):
                 if pick_row < GAME_AREA and pick_col < GAME_AREA:
                     if user_board[pick_row][pick_col] == 'X' or\
                          user_board[pick_row][pick_col] == 'O':
-                        print("There are no ships in squares marked X,"
+                        print("There are no enemy ships in squares marked X,"
                               "try again!")
                     else:
                         guess_is_good = True
-                        eliminate_target(pc_board, pick_row, pick_col)
+                        hit = eliminate_target(pc_board, pick_row, pick_col)
+                        if hit:
+                            user_board[pick_row][pick_col] = '@'
                 else:
                     print("Location is invalid. Please choose values"
                           "between 0 - 4.")
@@ -262,11 +264,13 @@ def play_game():
         # Exit loop if user doesn't want to play again
         if play_again == 'n':
             clear_screen()
+            print(TITLE)
             print("Thanks for playing!")
+            print("\n")
             break
 
         # Clear screen and display header if the user wants to play again
-        elif play_again == 'y':
+        if play_again == 'y':
             display_header()
 
 

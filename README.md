@@ -5,7 +5,9 @@ This is a Battleship game written in python, the game runs in the terminal. You 
 
 The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then, to place three ships on the board.
 
-The computer marks the board with an 'X' if it misses a shot. The game is coded to ensure that the computer does not shoot at or mark locations already containing a computer ship. Therefor the user can be confident that squares marked 'X' do not contain ships. If the user selects a square marked 'X', they are given another try.
+The computer marks the board with an 'X' if it misses a shot. The game is coded to ensure that the computer does not shoot at or mark locations already containing a computer ship. Therefore the user can be confident that squares marked 'X' do not contain ships. If the user selects a square marked 'X', they are given another try.
+
+When the user finds a computer ship, '@' is marked on the board to indicate that the computer ship has been sunk.
 
 You can read more about the game origin and other facts here [Battleship Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
 
@@ -18,49 +20,53 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 - A legend is also displayed to show the user what each character represents. 
 - An input asking the user for their name is also displayed.
 
-![On game start](documentation/on_game_start.png)
+![On game start](documentation/on-game-start.png)
 
 - A welcome message containing the users name is displayed.
 - The user is asked to begin by placing 3 ships on the board.
 - The user is also told that the game area / board is 5 rows x 5 columns.
 - It is also explained how to place user ships on the board by selecting digits from 0 to 4.
 
-![Welcome user](documentation/welcome_user.png)
+![Welcome user](documentation/welcome-user.png)
 
 - The user makes their selections by first selecting a row, and then a column.
 - They do this 3 times. Once per ship. An 'S' is displayed on the board to represent the player's ship.
 
-![User places ships on the board](documentation/placing_ships.png)
+![User places ships on the board](documentation/placing-ships.png)
 
 - Next the computer randomly selects 3 locations on the board for it's ships. The computer's ships are not visible to the player.
 - The game can now begin and the user is encouraged to take the first shot.
 - Users take shots by first selecting a row number followed by a column number.
 
-![PC places it's ships](documentation/pc_selects_locations.png)
+![PC places it's ships](documentation/pc-selects-locations.png)
 
 - The user is told if their shot was a hit or a miss.
 - The computer then takes a shot and the user is informed if it hit or missed.
 - Failed efforts by the computer are represented on the board by an 'X'.
 - Then the game loop continues.
 
-![Missed shot](documentation/missed_shot.png)
+![Missed shot](documentation/missed-shot.png)
 
 - With this shot both the player and computer sink a battleship!
 - The 'O' on the board tells the user that one of their ships has been sunk.
 
-![Direct Hit](documentation/direct_hit.png)
+![Direct Hit](documentation/direct-hit.png)
 
-- If the user fires at a location that they previous selected, they are promted to choose again.
+- If the user fires at a location containing an 'X' or one of their own ships, they are promted to choose again.
 
-![Already selected](documentation/already_selected.png)
+![Already selected](documentation/already-selected.png)
 
 - Here, the computer sunk all the users ships so the game is lost.
 
-![Game over](documentation/game_over.png)
+![Game over](documentation/game-over.png)
 
 - Here the user wins. At the end of the game the user is given a choice to play again.
 
-![You win](documentation/you_win.png)
+![You win](documentation/you-win.png)
+
+- If the user selects no, the screen is cleared and the title is shown along with a message "Thanks for playing!".
+
+![Thanks for playing](documentation/thanks-for-playing.png)
 
 ## Future Features
 
