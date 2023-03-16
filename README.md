@@ -1,9 +1,9 @@
 
 # Battleship
 
-This is a Battleship game written in python, the game runs in the terminal. You can see it in action in the Code Institute mock terminal Heroku.
+This is a Battleship game written in python, the game runs in the terminal. This program is a simple text-based implementation of the popular game. You can see it in action in the Code Institute mock terminal Heroku.
 
-The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same board. To begin with, the user is asked to input their name and then, to place three ships on the board.
+The user attempts to defeat the computer by sinking it's battleships and in turn, the computer attempts to sink the users's ships. In this version of the game, the user and the computer share the same 5x5 grid board. To begin with, the user is asked to input their name and then, to place three ships on the board.
 
 The computer marks the board with an 'X' if it misses a shot. The game is coded to ensure that the computer does not shoot at or mark locations already containing a computer ship. Therefore the user can be confident that squares marked 'X' do not contain ships. If the user selects a square marked 'X', they are given another try.
 
@@ -13,12 +13,13 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 [The live version of the project can be seen here](https://ci-battleship-pp3.herokuapp.com/)
 
+![Profile](documentation/profile.png)
 
 ## Features
 
 - The title "battleship" is displayed when the game runs. 
 - A legend is also displayed to show the user what each character represents. 
-- An input asking the user for their name is also displayed.
+- An input asking the user for their name is also displayed. This input cannot be left blank and must have a minimum of three characters.
 
 ![On game start](documentation/on-game-start.png)
 
@@ -29,19 +30,19 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 ![Welcome user](documentation/welcome-user.png)
 
-- The user makes their selections by first selecting a row, and then a column.
+- The user makes their selections by first selecting a row, and then a column. Validation is in place to make sure that only locations contained in the game area are permitted.
 - They do this 3 times. Once per ship. An 'S' is displayed on the board to represent the player's ship.
 
 ![User places ships on the board](documentation/placing-ships.png)
 
-- Next the computer randomly selects 3 locations on the board for it's ships. The computer's ships are not visible to the player.
-- The game can now begin and the user is encouraged to take the first shot.
+- Next the computer randomly selects 3 locations on the board for it's ships. The computer's ships are not visible to the player. Also it cannot choose locations already containing user ships.
+- The game can now begin and the user is encouraged to take the first shot. Validation is in place to only allow shots to be fired at squares within the game area.
 - Users take shots by first selecting a row number followed by a column number.
 
 ![PC places it's ships](documentation/pc-selects-locations.png)
 
 - The user is told if their shot was a hit or a miss.
-- The computer then takes a shot and the user is informed if it hit or missed.
+- The computer then takes a shot and the user is informed if it hit or missed. The computer cannot fire on locations containing its own ships.
 - Failed efforts by the computer are represented on the board by an 'X'.
 - Then the game loop continues.
 
@@ -49,7 +50,7 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 - With this shot both the player and computer sink a battleship!
 - The 'O' on the board tells the user that one of their ships has been sunk.
-- The '@' on the board tells the user that they have sank one of the computers ships.
+- The '@' on the board tells the user that they have sunk one of the computers ships.
 
 ![Direct Hit](documentation/hit.png)
 ![Sunken ships](documentation/sunken-ships.png)
@@ -94,7 +95,7 @@ I have performed manual testing on this project:
 - Tested the project in my local terminal as well as the Code Institute Heroku terminal.
 - I tested the CI Terminal in Chrome, FireFox, Edge & Safari browsers, the app runs well in all without any noticable differences.
 
-During testing I added code to the `game_setup()` function which marked the computer ships on the board.
+During testing I added code to the `game_setup()` function which marked the computer ships on the board with an '?'. This was just for testing purposes to quickly see the outcome of winning or losing a game.
 
     Marking the computer's ships on the board
     `for row in range(GAME_AREA):
@@ -129,3 +130,4 @@ This project was deployed using Code Institute's mock terminal for Heroku.
 
 - The ASCII art used for the title of the game was taken from [ascii.co.uk](https://ascii.co.uk/art/battleship).
 - Code Institute for allowing me use of their deployment terminal.
+- Wikipedia for information about the battleship game.

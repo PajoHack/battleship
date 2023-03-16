@@ -51,14 +51,20 @@ def display_header():
 
 def game_setup(user_board, pc_board, user_name):
     """
-    function asks user to place 3 ships on the board.
-    The function also randomly places 3 ships on the board for the computer.
-    The function checks if the user has entered a valid location for
-    their ships. If the user has entered an invalid location they are
-    asked to re-enter the location.
+     Set up the game by placing user's and computer's ships on the boards.
+
+    This function prompts the user to place 3 ships on their board and
+    validates the entered locations. It also randomly places 3 ships for
+    the computer on its board. The user's and computer's ships are placed
+    in non-overlapping locations.
+
+    Parameters:
+    user_board (list): A 2D list representing the user's game board.
+    pc_board (list): A 2D list representing the computer's game board.
+    user_name (str): The user's name.
 
     Returns:
-    A list of tuples containing the row and column coordinates of
+    list: A list of tuples containing the row and column coordinates of
     each ship on the computer's board.
     """
     print("\n")
@@ -115,23 +121,28 @@ def game_setup(user_board, pc_board, user_name):
                 pc_ship_locations.append((row, col))
                 permitted_location = True
 
-    # Mark computer's ships on the user's board
-    for row, col in pc_ship_locations:
-        user_board[row][col] = '?'
-
     return pc_ship_locations
 
 
 def display_board(area):
     """
-    function iterates over all of the squares in the game area
-    and prints them out with spaces between them.
+    Display the game board with row and column indices.
+
+    This function iterates over all the squares in the game area and prints
+    them with spaces between the elements, along with row and column indices.
+    The board is enclosed in a border for better visualization.
+
+    Parameters:
+    area (list): A 2D list representing the game area to be displayed.
+
+    Returns:
+    None
     """
     print("    " + " ".join(str(i) for i in range(GAME_AREA)))
-    print("  +" + "--" * GAME_AREA + "+")
+    print("  +" + "--" * GAME_AREA + "-+")
     for i in range(GAME_AREA):
         print(f"{i} | {' '.join(area[i])} |")
-    print("  +" + "--" * GAME_AREA + "+")
+    print("  +" + "--" * GAME_AREA + "-+")
 
 
 def eliminate_target(area, row, col):
@@ -139,31 +150,48 @@ def eliminate_target(area, row, col):
     This function tries to find the target in the game area.
     If it finds 'S' it changes that square to an 'O' indicating a hit.
     Also an 'X' is printed to the squares to indicate the computer missed.
+
+    Parameters:
+    area (list): A 2D list representing the game area.
+    row (int): The row index of the target square.
+    col (int): The column index of the target square.
+
+    Returns:
+    bool: True if the target is found and hit, False otherwise.
     """
+
+    # Check if the target is at the specified row and column
     if area[row][col] == 'S':
         area[row][col] = 'O'
         print(colored('Direct Hit!\n', 'blue'))
+        # Return True as the target has been hit
         return True
     else:
+        # Change the square to 'X' to indicate a miss
         area[row][col] = 'X'
         print(colored('Missed!\n', 'blue'))
+        # Return False as the target has not been hit
         return False
 
 
 def game_loop(user_board, pc_board, user_name, pc_ship_locations):
     """
-    This function is the game loop.
-    It asks the user to pick a location on the board
-    and then the computer randomly picks a location on the board.
-    The function checks if the user has entered a valid
-    location for their ships.
-    If the user has entered an invalid location
-    they are asked to re-enter the location.
-    The function also checks if the computer has randomly
-    placed a ship in a location
-    that already has a ship. If the computer has placed a
-    ship in a location that already
-    has a ship, the function will randomly select a new location for the ship.
+    Execute the main game loop for a player and computer opponent.
+
+    This function handles the game loop, alternating turns between the user and
+    the computer. It validates user input and checks for valid ship placement,
+    prompting the user to re-enter their choice if necessary. The function also
+    ensures that the computer doesn't place a ship on an occupied location.
+
+    Parameters:
+    user_board (list): A 2D list representing the user's game board.
+    pc_board (list): A 2D list representing the computer's game board.
+    user_name (str): The user's name.
+    pc_ship_locations (list): A list of tuples representing the computer's
+    ship locations.
+
+    Returns:
+    None
     """
     while True:
         # Clear the screen before displaying the updated boards
@@ -229,11 +257,14 @@ def game_loop(user_board, pc_board, user_name, pc_ship_locations):
 
 def play_game():
     """
-    This function is the main function.
-    It calls the display_header function to display the header.
-    It also calls the game_setup function to set up the game.
-    It calls the game_loop function to start the game.
-    It also asks the user if they want to play again.
+    Execute the main function to play the game.
+
+    This function manages the game flow, starting with displaying the header,
+    setting up the game, and initiating the game loop. It also prompts the user
+    to play again after a game has ended.
+
+    Returns:
+    None
     """
     display_header()
     while True:
@@ -242,11 +273,11 @@ def play_game():
                       range(GAME_AREA)]
         pc_board = [[' ' for _ in range(GAME_AREA)] for _ in range(GAME_AREA)]
         while True:
-            user_name = input("Please enter your name: ")
-            if user_name.strip():
+            user_name = input("Please enter your name: ").strip()
+            if len(user_name) >= 3:
                 break
             else:
-                print("Name cannot be blank. Please try again.")
+                print("Name must be at least 3 characters long.")
 
         # Start game
         pc_ship_locations = game_setup(user_board, pc_board, user_name)
