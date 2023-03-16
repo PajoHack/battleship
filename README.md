@@ -49,8 +49,10 @@ You can read more about the game origin and other facts here [Battleship Wikiped
 
 - With this shot both the player and computer sink a battleship!
 - The 'O' on the board tells the user that one of their ships has been sunk.
+- The '@' on the board tells the user that they have sank one of the computers ships.
 
-![Direct Hit](documentation/direct-hit.png)
+![Direct Hit](documentation/hit.png)
+![Sunken ships](documentation/sunken-ships.png)
 
 - If the user fires at a location containing an 'X' or one of their own ships, they are promted to choose again.
 

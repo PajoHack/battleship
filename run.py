@@ -49,9 +49,6 @@ def display_header():
     print(LEGEND)
 
 
-GAME_AREA = 5
-
-
 def game_setup(user_board, pc_board, user_name):
     """
     function asks user to place 3 ships on the board.
